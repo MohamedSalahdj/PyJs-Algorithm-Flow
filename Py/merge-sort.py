@@ -6,6 +6,10 @@
         # 1.4 call merge_sort twice 
             # 1.4.1 merge_sort(array, start, midpoint)
             # 1.4.2 merge_sort(array, midpoint + 1, end)
-        # call merge function (array, start, midpoint, end)
+        # 1.5 call merge function (array, start, midpoint, end)
+    
     # 2- create merge function 
+    # 2.1 inputs array, start, midpoint, end
+    # 2.2 create two arrays
+    # move remain items  
 
