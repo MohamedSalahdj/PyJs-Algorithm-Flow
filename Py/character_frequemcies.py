@@ -12,10 +12,7 @@ class CharFrequency:
     def frequency_dict(self, message):
         freq = {}
         for i in message:
-            if i not in freq:
-                freq[i] = 1
-            else:
-                freq[i] = freq[i] + 1
+            freq[i] = freq.get(i, 0) + 1
         
         for key, value in freq.items():
             print(f"{key} -- > {value}")
@@ -26,6 +23,6 @@ def main():
     message = "hello world"
     obj.asci(message)
     print("-"*45)
-    obj.test(message)
+    obj.frequency_dict(message)
 
 main()
