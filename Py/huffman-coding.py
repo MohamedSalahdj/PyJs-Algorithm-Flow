@@ -11,11 +11,12 @@ class HeapNode:
         return self.freq < other.freq
 
     def __repr__(self):
-        return f'Node(data: {self.data}, freq: {self.freq})'
+        return f'Node(data: {self.data}, freq: {self.freq}, left: {self.left}, right: {self.right})'
 
 
 class Huffman:
     def __init__(self, message):
+        self.internal_char = chr(0)
         freqHash = {}
 
         # Calculate frequency of each character in the message
@@ -29,10 +30,24 @@ class Huffman:
         self.minHeap = []
         for char, freq in freqHash.items():
             newNode = HeapNode(char, freq)
-            heapq.heappush(self.minHeap, newNode)
+            heapq.heappush(self.minHeap, (newNode.freq, newNode))
 
+        # Debug: Print the initial minHeap
         print(self.minHeap)
 
+        # Construct Huffman tree by repeatedly extracting nodes from min heap
+        while len(self.minHeap) > 1:
+            left_freq, left_node = heapq.heappop(self.minHeap)
+            right_freq, right_node = heapq.heappop(self.minHeap)
+            newFreq = left_freq + right_freq
+            top = HeapNode(self.internal_char, newFreq)
+            top.left = left_node
+            top.right = right_node
+            heapq.heappush(self.minHeap, (top.freq, top))
+
+        # Debug: Print the final minHeap (should contain only the root of the Huffman tree)
+        print('-'*45)
+        print(self.minHeap)
 
 
 def main():
