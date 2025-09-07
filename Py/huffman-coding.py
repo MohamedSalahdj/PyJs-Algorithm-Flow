@@ -17,6 +17,7 @@ class HeapNode:
 class Huffman:
     def __init__(self, message):
         self.internal_char = chr(0)
+        self.codes = {}
         freqHash = {}
 
         # Calculate frequency of each character in the message
@@ -49,9 +50,24 @@ class Huffman:
         print('-'*45)
         print(self.minHeap)
 
+        # Generate Huffman code for each character
+        self.generateCodes(self.minHeap[0][1], '')
+
+    def generateCodes(self, node, code):
+        if node is None:
+            return
+        if node.data != self.internal_char:
+            self.codes[node.data] = code
+        
+        self.generateCodes(node.left, code + '0')
+        self.generateCodes(node.right, code + '1')
+
 
 def main():
     message = 'internet'
     huffman = Huffman(message)
+
+    for k in huffman.codes.keys():
+        print(f'{k} : {huffman.codes[k]}')
 
 main()
